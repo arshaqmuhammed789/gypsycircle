@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ExploreWorld - Your premier travel partner offering curated tour packages worldwide">
+    <meta name="keywords" content="travel, tours, vacation, adventure, tourism">
+    <meta name="author" content="ExploreWorld">
+    <meta property="og:title" content="ExploreWorld | Travel & Tour">
+    <meta property="og:description" content="Discover your next adventure with ExploreWorld">
+    <meta property="og:image" content="https://example.com/logo.png">
+    <meta name="robots" content="index, follow">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "GypsyCircle",
+    "image": "https://yourdomain.com/logo.png"
+    }
+    </script>
+    <link rel="canonical" href="https://example.com">
+    <title>GypsyCircle | Travel & Tour</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://source.unsplash.com/random/1920x1080/?mountain" as="image">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    
+    <style>
+        :root {
+            --primary-color: #2a9d8f;
+            --secondary-color: #264653;
+            --accent-color: #e9c46a;
+        }
+
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url(mountain-min.jpg) center/cover;
+            margin-top: 76px;
+        }
+
+        .package-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: var(--primary-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="progress-bar" style="width: 0%"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <img src="gypsy_logo-removebg-preview.png" alt="logo" style="height: 2rem;">&nbsp
+            <a class="navbar-brand fw-bold" href="#">GypsyCircle</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#destinations">Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" id="searchInput" placeholder="Search destinations...">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-white d-flex align-items-center">
+        <div class="container text-center fade-in">
+            <h1 class="display-4 fw-bold mb-4">Discover Your Next Adventure</h1>
+            <p class="lead">Explore the world with our expertly crafted tours</p>
+        </div>
+    </section>
+
+    <!-- Destinations Carousel -->
+    <section class="py-5" id="destinations">
+        <div class="container">
+            <h2 class="text-center mb-5">Popular Destinations</h2>
+            <div id="destinationsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Carousel items will be populated by JavaScript -->
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Grid -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Tour Packages</h2>
+            <div class="row g-4" id="packagesGrid">
+                <!-- Package cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+<footer class="bg-dark text-white pt-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- About Column -->
+            <div class="col-md-6 col-lg-3">
+                <h5 class="text-primary mb-3">ExploreWorld</h5>
+                <p class="small">Your gateway to unforgettable travel experiences. We specialize in creating personalized journeys that create lifelong memories.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-white"><i class="fab fa-cc-visa fa-2x"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-cc-mastercard fa-2x"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-paypal fa-2x"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-6 col-lg-3">
+                <h5 class="text-primary mb-3">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#destinations" class="text-white text-decoration-none">Destinations</a></li>
+                    <li class="my-2"><a href="#packages" class="text-white text-decoration-none">Tour Packages</a></li>
+                    <li><a href="#about" class="text-white text-decoration-none">About Us</a></li>
+                    <li class="my-2"><a href="#contact" class="text-white text-decoration-none">Contact</a></li>
+                    <li><a href="#faq" class="text-white text-decoration-none">FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-6 col-lg-3">
+                <h5 class="text-primary mb-3">Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        63/700, D Space, <br> 6th Floor, Sky Tower,<br> Mavoor Road Junction, Bank Road,<br> Kozhikode-673001
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-phone me-2"></i>
+                        +91 8075 7594 55 <br> &nbsp &nbsp &nbsp +91 7034 9037 10
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope me-2"></i>
+                        gypsycircleofficial@gmail.com
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="col-md-6 col-lg-3">
+                <h5 class="text-primary mb-3">Newsletter</h5>
+                <p class="small">Subscribe for travel updates and exclusive offers!</p>
+                <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Enter your email">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt-5">
+
+        <!-- Copyright and Social -->
+        <div class="row py-4">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="small mb-0">&copy; 2023 ExploreWorld. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <div class="social-links">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/The.gypsycircle" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-3">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</footer>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Sample data
+        const destinations = [
+            { name: 'Taj Mahal', image: 'https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1776&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { name: 'Kashmir', image: 'https://images.unsplash.com/photo-1598091383021-15ddea10925d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { name: 'Kedarkantha', image: 'https://images.unsplash.com/photo-1628841290657-c272f3e87fff?q=80&w=1912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+        ];
+
+        const packages = [
+            { title: 'Manali', price: 2999, duration: '10 days', image: 'https://images.unsplash.com/photo-1592548890095-cd2a7aeca5ac?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { title: 'Wayanad', price: 2599, duration: '14 days', image: 'https://plus.unsplash.com/premium_photo-1661962772428-f17249503156?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { title: 'Rajasthan', price: 1999, duration: '7 days', image: 'https://images.unsplash.com/photo-1631867675167-90a456a90863?q=80&w=1779&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+        ];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Simulate loading delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Hide loading overlay
+            document.querySelector('.loading-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.querySelector('.loading-overlay').style.display = 'none';
+            }, 300);
+
+            // Initialize carousel
+            initCarousel();
+            
+            // Initialize packages
+            initPackages();
+
+            // Add scroll progress
+            window.addEventListener('scroll', updateProgressBar);
+
+            // Add intersection observers for animations
+            initIntersectionObserver();
+        });
+
+        function initCarousel() {
+            const carouselInner = document.querySelector('.carousel-inner');
+            destinations.forEach((dest, index) => {
+                const item = document.createElement('div');
+                item.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+                item.innerHTML = `
+                    <img src="${dest.image}" class="d-block w-100" alt="${dest.name}" loading="lazy">
+                    <div class="carousel-caption">
+                        <h5>${dest.name}</h5>
+                    </div>
+                `;
+                carouselInner.appendChild(item);
+            });
+        }
+
+        function initPackages() {
+            const grid = document.getElementById('packagesGrid');
+            packages.forEach(pkg => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4';
+                col.innerHTML = `
+                    <div class="card package-card h-100">
+                        <img src="${pkg.image}" class="card-img-top" alt="${pkg.title}" loading="lazy">
+                        <div class="card-body">
+                            <h5 class="card-title">${pkg.title}</h5>
+                            <p class="card-text">${pkg.duration}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h4 text-primary">$${pkg.price}</span>
+                                <button class="btn btn-primary">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(col);
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', debounce(function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.package-card').forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                card.style.display = title.includes(searchTerm) ? 'block' : 'none';
+            });
+        }, 300));
+
+        // Scroll progress bar
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + "%";
+        }
+
+        // Intersection Observer for animations
+        function initIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
+
+        // Utility functions
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Dynamic year for footer
+        document.querySelector('#copyrightYear').textContent = new Date().getFullYear();
+    </script>
+    <script>
+        // Back to top button
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTop.style.display = 'block';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    </script>
+</body>
+</html>
